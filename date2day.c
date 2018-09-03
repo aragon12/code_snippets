@@ -11,6 +11,7 @@
 #include <stdlib.h>
 
 int year(int year);
+int vali_date(int, int, int);
 int date_parse(char *, int *, int *, int *);
 
 char day[][10] = {
@@ -46,6 +47,12 @@ int main()
 	if (!date_parse(date, &d, &m, &y))
 	{
 		printf("\nERROR: Invalid date format\nenter ur date in DD/MM/YYYY format\n");
+		return 0;
+	}
+	if (!vali_date(d, m, y))
+	{
+		printf
+			("\nERROR: either date is wrong... or not possible acc to calender\n");
 		return 0;
 	}
 	if (year(y) == -1)
@@ -99,5 +106,30 @@ int date_parse(char *date, int *day, int *mon, int *year)
 	*year = atoi(&date[sl[1]]);
 
 	return 1;
+}
+
+int vali_date(int d, int m, int y)
+{
+	if (!m || m > 12)
+		return 0;
+	if (d > 0 && d < 29)
+		return 1;
+	else if (d == 29 || d == 30)
+	{
+		if (m == 2)
+		{
+			if (d == 29 && !(y % 4))
+				return 1;
+			return 0;
+		}
+		return 1;
+	}
+	else if (d == 31)
+	{
+		if (m == 2 || m == 4 || m == 6 || m == 9 || m == 11)
+			return 0;
+		return 1;
+	}
+	return 0;
 }
 // by Aragon12
