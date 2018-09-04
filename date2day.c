@@ -1,5 +1,5 @@
 /* 
- * day2day.c by Aragon12
+ * date2day.c by Aragon12
  *
  * Simple terminal based C program, which will give you the exact day of any date entered between year 1700 - 2199
  *
@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int year(int year);
+int year(int );
 int vali_date(int, int, int);
 int date_parse(char *, int *, int *, int *);
 
@@ -65,23 +65,23 @@ int main()
 	return 1;
 }
 
-int year(int year)
+int year(int y)
 {
-	if ((year >= 1700) && (year < 1800))
+	if ((y >= 1700) && (y < 1800))
 		return 4;
-	else if ((year >= 1800) && (year < 1900))
+	else if ((y >= 1800) && (y < 1900))
 		return 2;
-	else if ((year >= 1900) && (year < 2000))
+	else if ((y >= 1900) && (y < 2000))
 		return 0;
-	else if ((year >= 2000) && (year < 2100))
+	else if ((y >= 2000) && (y < 2100))
 		return 6;
-	else if ((year >= 2100) && (year < 2200))
+	else if ((y >= 2100) && (y < 2200))
 		return 4;
 	else
 		return -1;
 }
 
-int date_parse(char *date, int *day, int *mon, int *year)
+int date_parse(char *date, int *d, int *m, int *y)
 {
 	int sl[2], i = 1, q = 0;
 	char *ptr = date;
@@ -101,9 +101,9 @@ int date_parse(char *date, int *day, int *mon, int *year)
 	if (!(sl[1] == 4 || sl[1] == 5 || sl[1] == 6))
 		return 0;
 
-	*day = atoi(&date[0]);
-	*mon = atoi(&date[sl[0]]);
-	*year = atoi(&date[sl[1]]);
+	*d = atoi(&date[0]);
+	*m = atoi(&date[sl[0]]);
+	*y = atoi(&date[sl[1]]);
 
 	return 1;
 }
