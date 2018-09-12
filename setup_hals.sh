@@ -20,17 +20,17 @@ printf "%10sUsage: $0 [ROM source path]\e[0m\n"
 }
 
 clean_hal() {
-rm -rf $ROM_S/hardware/qcom/$1-caf/msm8996
+rm -rf hardware/qcom/$1-caf/msm8996
 }
 
 clone_hal() {
-git clone  https://github.com/aragon12/hardware_qcom_$1.git -b pie-caf-8996 $ROM_S/hardware/qcom/$1-caf
+git clone  https://github.com/aragon12/hardware_qcom_$1.git -b pie-caf-8996 hardware/qcom/$1-caf
 }
 
 [ -z "$1" ] && usage && exit
 [ ! -d "$1" ] && usage && die "dir $1 doesn't exists" 
-ROM_S=$(realpath $1)
-printf "Using $ROM_S as rom source dir\n"
+cd $1
+printf "Using $(realpath .) as rom source dir\n"
 
 printf "Cleaning existing HALS\n"
 clean_hal "audio"
