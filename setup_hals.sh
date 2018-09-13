@@ -20,11 +20,17 @@ printf "%10sUsage: $0 [ROM source path]\e[0m\n"
 }
 
 clean_hal() {
-rm -rf hardware/qcom/$1-caf/msm8996
+for kek in $1
+do
+rm -rf hardware/qcom/$kek-caf/msm8996
+done
 }
 
 clone_hal() {
-git clone  https://github.com/aragon12/hardware_qcom_$1.git -b pie-caf-8996 hardware/qcom/$1-caf
+for oof in $1
+do
+git clone  https://github.com/aragon12/hardware_qcom_$oof.git -b pie-caf-8996 hardware/qcom/$oof-caf
+done
 }
 
 [ -z "$1" ] && usage && exit
@@ -33,13 +39,9 @@ cd $1
 printf "Using $(realpath .) as rom source dir\n"
 
 printf "Cleaning existing HALS\n"
-clean_hal "audio"
-clean_hal "display"
-clean_hal "media"
+clean_hal "audio display media"
 
 printf "Cloning HALS for AOSP PIE\n"
-clone_hal "audio"
-clone_hal "display"
-clone_hal "media"
+clone_hal "audio display media"
 
 printf "\e[1;32mSuccessfully setup HALS!!!\n\e[0m"
