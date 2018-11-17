@@ -5,14 +5,20 @@
  *
  * USAGE: (linux)
  *     gcc date2day.c -o date2day
- *     ./date2day
+ *     ./date2day [date] (in dd/mm/yyyy)
+ *
+ * OUTPUT:
+ *     ./date2day 15/08/1947
+ *     on 15/8/1947, there was Friday
  */
+ 
 #include <stdio.h>
 #include <stdlib.h>
 
-int year(int );
+int year(int);
 int vali_date(int, int, int);
 int date_parse(char *, int *, int *, int *);
+void usage(char *);
 
 char day[][10] = {
 	"Sunday",
@@ -31,28 +37,23 @@ int mon[12] = {
 	0, 3, 5,
 };
 
-int main()
+int main(int kek, char *date[])
 {
 	int d, m, y;
-	char date[11];
 
-	printf("date2day by Aragon12\n");
-	printf("\nSimple terminal based C program\n");
-	printf("which will give you the exact day of any date entered between year 1700-2199\n");
-
-	printf("\nin DD/MM/YYYY format\n");
-	printf("Enter Date:  ");
-	scanf("%s", date);
-
-	if (!date_parse(date, &d, &m, &y))
+	if (kek < 2)
+	{
+		usage(date[0]);
+		return 0;
+	}
+	 if (!date_parse(date[1], &d, &m, &y))
 	{
 		printf("\nERROR: Invalid date format\nenter ur date in DD/MM/YYYY format\n");
 		return 0;
 	}
 	if (!vali_date(d, m, y))
 	{
-		printf
-			("\nERROR: either date is wrong... or not possible acc to calender\n");
+		printf("\nERROR: either date is wrong... or not possible acc to calender\n");
 		return 0;
 	}
 	if (year(y) == -1)
@@ -131,5 +132,14 @@ int vali_date(int d, int m, int y)
 		return 1;
 	}
 	return 0;
+}
+
+void usage(char *p)
+{
+	printf("date2day by Aragon12\n");
+	printf
+		("a simple cmd utility\nwhich will give you the exact day of any date entered between year 1700-2199\n");
+	printf("\nUsage:\n");
+	printf("%s   [ date ]   (in dd/mm/yyyy)\n", p);
 }
 // by Aragon12
