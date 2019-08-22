@@ -111,7 +111,7 @@ int date_parse(char *date, int *d, int *m, int *y)
 
 int vali_date(int d, int m, int y)
 {
-	if (!m || m > 12)
+	if (m <= 0 || m > 12)
 		return 0;
 	if (d > 0 && d < 29)
 		return 1;
